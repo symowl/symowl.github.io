@@ -7,6 +7,18 @@
     <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
     <meta charset="utf-8">
     <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <script>
+        (function (l) {
+            if (l.search[1] === '/') {
+                var decoded = l.search.slice(1).split('&').map(function (s) {
+                    return s.replace(/~and~/g, '&')
+                }).join('?');
+                window.history.replaceState(null, null,
+                    l.pathname.slice(0, -1) + decoded + l.hash
+                );
+            }
+        }(window.location))
+    </script>
     <style>
         .media>img {
             height: 4rem;
@@ -107,6 +119,7 @@
                     }
                 }
             }).mount('#app')
+            console.log(location.pathname)
         </script>
     </div>
 </body>
