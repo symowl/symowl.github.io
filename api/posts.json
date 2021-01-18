@@ -1,0 +1,10 @@
+{
+    "210113 安装ArchLinux系统": {
+        "excerpt": "预先配置 连接WiFi网络iwctl device listiwctl station ${device} scaniwctl station ${device} get-networksiwctl station ${device} connect ${ssid} 测试网络连接并同步时间ping -c 1 archlinux.orgtimedatectl set-ntp true 与Windows系统同时使用时无需配置 硬盘分区格式化并挂载fdisk -lcfdisk /dev/${disk}mkfs.f",
+        "tags": [
+            "archlinux",
+            "linux"
+        ],
+        "uri": "/2021/01/13/setup-arch-linux"
+    }
+}

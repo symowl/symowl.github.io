@@ -1,0 +1,110 @@
+<!doctype html>
+<html>
+
+<head>
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.4.1/styles/default.min.css" rel="stylesheet">
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/css/bootstrap.min.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1, shrink-to-fit=no" name="viewport">
+    <style>
+        .media>img {
+            height: 4rem;
+            width: 4rem;
+        }
+    </style>
+    <title>SYMOWL</title>
+</head>
+
+<body>
+    <div id="app">
+        <nav class="bg-danger navbar navbar-dark navbar-expand-lg">
+            <div class="container">
+                <a class="navbar-brand" href="/">SYMOWL</a>
+                <button class="navbar-toggler" data-target="#navbarNavDropdown" data-toggle="collapse" type="button">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navbarNavDropdown">
+                    <ul class="navbar-nav">
+                        <li class="nav-item active" v-if="uri == '/'">
+                            <a class="nav-link" href="/">News</a>
+                        </li>
+                        <li class="nav-item" v-else>
+                            <a class="nav-link" href="/">News</a>
+                        </li>
+                        <li class="active dropdown nav-item" v-if="uri.indexOf('/tag') == 0">
+                            <a class="dropdown-toggle nav-link" data-toggle="dropdown">Tags</a>
+                            <div class="dropdown-menu">
+                                <template v-for="_, tag in tags">
+                                    <a :href="'/tag/' + tag" class="active dropdown-item"
+                                        v-if="uri.indexOf('/tag/' + tag) == 0">{{ tag }}</a>
+                                    <a :href="'/tag/' + tag" class="dropdown-item" v-else>{{ tag }}</a>
+                                </template>
+                            </div>
+                        </li>
+                        <li class="dropdown nav-item" v-else>
+                            <a class="dropdown-toggle nav-link" data-toggle="dropdown">Tags</a>
+                            <div class="dropdown-menu">
+                                <a :href="'/tag/' + tag" class="dropdown-item" v-for="_, tag in tags">{{ tag }}</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+        <div class="container">
+            <ul class="list-unstyled">
+                <template v-for="v, k in posts">
+                    <a :href="v.uri" class="text-body">
+                        <li class="media mt-4">
+                            <img class="mr-3" src="">
+                            <div class="media-body">
+                                <h5 class="mt-0 mb-1">
+                                    {{ k }}
+                                </h5>
+                                {{ v.excerpt }}
+                            </div>
+                        </li>
+                    </a>
+                    <a :class="badges[Math.floor(Math.random()*5)] + ' mb-4 mr-1'" :href="'/tag/'+tag"
+                        v-for="tag in v.tags">{{ tag }}</a>
+                </template>
+            </ul>
+        </div>
+        <script src="https://cdn.bootcdn.net/ajax/libs/axios/0.21.0/axios.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/clipboard.js/2.0.6/clipboard.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/highlight.js/10.4.1/highlight.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.5.1/jquery.slim.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/4.5.3/js/bootstrap.bundle.min.js"></script>
+        <script src="https://cdn.bootcdn.net/ajax/libs/vue/3.0.2/vue.global.prod.js"></script>
+        <script>
+            hljs.initHighlightingOnLoad()
+            Vue.createApp({
+                created() {
+                    axios.get('/api/posts.json').then(resp => {
+                        this.posts = resp.data
+                    })
+                    axios.get('/api/tags.json').then(resp => {
+                        this.tags = resp.data
+                    })
+                },
+                data() {
+                    return {
+                        badges: [
+                            "badge badge-pill badge-primary",
+                            "badge badge-pill badge-success",
+                            "badge badge-pill badge-danger",
+                            "badge badge-pill badge-warning",
+                            "badge badge-pill badge-info"
+                        ],
+                        posts: {},
+                        tags: {},
+                        uri: location.pathname
+                    }
+                }
+            }).mount('#app')
+        </script>
+    </div>
+</body>
+
+</html>
