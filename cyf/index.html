@@ -1,0 +1,93 @@
+<!doctype html>
+<html>
+
+<head>
+    <link href="animate.css" rel="stylesheet">
+    <link href="normalize.css" rel="stylesheet">
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <style>
+        #back {
+            display: none;
+            background-color: #ec6941;
+            border-radius: 2rem;
+            bottom: 2rem;
+            color: #fff;
+            height: 2rem;
+            left: calc(50vw - 1rem);
+            line-height: 2rem;
+            position: fixed;
+            text-align: center;
+            width: 2rem;
+        }
+
+        #title {
+            background-color: #ec6941;
+            border-radius: 2rem;
+            color: #fff;
+            display: block;
+            height: 3rem;
+            left: calc(50vw - 6rem);
+            line-height: 3rem;
+            min-width: 12rem;
+            position: fixed;
+            text-align: center;
+            top: calc(50vh - 1.5rem)
+        }
+
+        .tip {
+            display: none;
+            left: calc(50vw - 5.5rem);
+            max-width: 11rem;
+            position: fixed;
+        }
+
+        .tip h4 {
+            text-align: center;
+        }
+    </style>
+    <title>CYF</title>
+</head>
+
+<body>
+    <h2 class="animate__animated animate__infinite animate__rubberBand" id="title" onclick="showTip()">今天贴哪里？</h2>
+
+    <div class="animate__animated animate__jackInTheBox tip" style="top: calc(50vh - 7rem)">
+        <h4>灸足三里</h4>
+        <p>足三里是阳明胃经的合穴,为五俞穴之一, 为全身最重要的强壮穴。具有健脾胃,助运化,调气血,扶正气,壮元阳,祛风邪及强身壮体益寿的作用,俗话说. "若要安
+            (足)三里不干",是古今最常用的保健穴。常用法采用艾条温和灸或化脓灸。</p>
+    </div>
+
+    <div class="animate__animated animate__jackInTheBox tip" style="top: calc(50vh - 9rem)">
+        <h4>灸关元穴</h4>
+        <p>关元属任脉经穴,为足三阴经与任脉之会,手太阳小肠的募穴。具有温肾固精,益气回阳,培元固本,理气和血,通调冲任及强壮的作用,灸之能调整膀脱的张力,促进垂体
+            …性腺功能,提高机体免疫力,防病强身保健。古人有"关元主诸虚百损"。对防治遗尿、遗精,习惯性便秘等有较好效果。为中老年人保健灸常用穴。</p>
+    </div>
+
+    <div class="animate__animated animate__jackInTheBox tip" style="top: calc(50vh - 8rem)">
+        <h4>灸气海穴</h4>
+        <p>气海穴属任脉经穴,为保健要穴。具有培补元气,益肾固精,调理冲任及强壮作用,灸之能调整胃肠及肾的功能,提高机体免疫力。对腹泻、遗尿、阳痿，滑精、月经不调、崩漏、中风、不孕有防治作用。古人有"气海者,人元气所生之地也"。
+        </p>
+    </div>
+
+    <h2 id="back" onclick="hideTip()">&#11176;</h2>
+
+    <script>
+        function hideTip() {
+            document.getElementById('title').style.display = "block"
+            let tips = document.getElementsByClassName('tip')
+            for (tip of tips) {
+                tip.style.display = "none"
+            }
+            document.getElementById('back').style.display = "none"
+        }
+
+        function showTip() {
+            document.getElementById('title').style.display = "none"
+            document.getElementsByClassName('tip')[Math.floor(Math.random() * 3)].style.display = "block"
+            document.getElementById('back').style.display = "block"
+        }
+    </script>
+</body>
+
+</html>
